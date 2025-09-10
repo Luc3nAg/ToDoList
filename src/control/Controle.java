@@ -15,7 +15,7 @@ public class Controle {
 		System.out.println("Título: ");
 		String Titulo = sc.nextLine();
 		
-		System.out.println("Descrição: ");
+		System.out.println("Descricao: ");
 		String Descricao = sc.nextLine();
                 
                 int id = 0;
@@ -56,5 +56,6 @@ public class Controle {
             System.out.println("Tarefa não encontrada.");
         }
     }
+}
 
 	
