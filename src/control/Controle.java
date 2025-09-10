@@ -26,9 +26,68 @@ public class Controle {
 		
 		System.out.println("Tarefa adicionada: " + tarefa);
 	}
-	public void editarTarefa() {
-		System.out.println("EDITAR TAREFA");
-	}
+	
+	 public void editarTarefa() {
+        System.out.println("EDITAR TAREFA");
+
+        if (Lista.isEmpty()) {
+            System.out.println("Nenhuma tarefa cadastrada.");
+            return;
+        }
+
+        // Exibe IDs e títulos
+        for (Tarefas t : Lista) {
+            System.out.println(t.getId() + " - " + t.getTitulo());
+        }
+
+        int id = readInt("Digite o ID da tarefa que deseja editar: ");
+
+        // Busca tarefa pelo ID
+        Tarefas tarefa = null;
+        for (Tarefas t : Lista) {
+            if (t.getId() == id) {
+                tarefa = t;
+                break;
+            }
+        }
+
+        if (tarefa == null) {
+            System.out.println("Tarefa não encontrada.");
+            return;
+        }
+
+        System.out.println("O que deseja editar?");
+        System.out.println("1 - Título");
+        System.out.println("2 - Descrição");
+        System.out.println("3 - Status (Completa/Incompleta)");
+
+        int opcao = readInt("Escolha (1-3): ");
+
+        switch (opcao) {
+            case 1 -> {
+                String novoTitulo = readNonEmptyLine("Novo título: ");
+                tarefa.setTitulo(novoTitulo);
+                System.out.println("Título atualizado.");
+            }
+            case 2 -> {
+                String novaDescricao = readNonEmptyLine("Nova descrição: ");
+                tarefa.setDescrição(novaDescricao); // atenção: método com acento
+                System.out.println("Descrição atualizada.");
+            }
+            case 3 -> {
+                boolean status = readBoolean("A tarefa está completa? (true/false): ");
+                tarefa.setCompleta(status);
+                System.out.println("Status atualizado.");
+            }
+            default -> {
+                System.out.println("Opção inválida.");
+                return;
+            }
+        }
+
+        System.out.println("Tarefa editada com sucesso: " + tarefa);
+    }
+
 	public void listarTarefa() {
 		System.out.println("\nLISTAR TAREFAS");
 		
@@ -48,4 +107,5 @@ public class Controle {
 	public void excluirTarefa() {
 		System.out.println("EXCLUIR TAREFA");
 	}
+
 }
