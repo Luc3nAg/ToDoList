@@ -14,7 +14,6 @@ public class Controle {
 		
 		System.out.println("Título: ");
 		String Titulo = sc.nextLine();
-		
 		System.out.println("Descricao: ");
 		String Descricao = sc.nextLine();
                 
