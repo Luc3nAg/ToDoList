@@ -37,6 +37,24 @@ public class Controle {
 	
 	public void excluirTarefa() {
 		System.out.println("EXCLUIR TAREFA");
-	}
+		System.out.print("Informe o ID da tarefa a ser excluída: ");
+        int idExcluir = sc.nextInt();
+        sc.nextLine(); // Limpa o buffer
+
+        Iterator<Tarefas> iterator = Lista.iterator();
+        boolean removido = false;
+        while (iterator.hasNext()) {
+            Tarefas tarefa = iterator.next();
+            if (tarefa.getId() == idExcluir) {
+				iterator.remove();
+                System.out.println("Tarefa removida com sucesso!");
+                removido = true;
+                break;
+            }
+        }
+        if (!removido) {
+            System.out.println("Tarefa não encontrada.");
+        }
+    }
+
 	
-}
