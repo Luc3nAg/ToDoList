@@ -16,7 +16,6 @@ public class Controle {
 		String Titulo = sc.nextLine();
 		
 		System.out.println("Descricao: ");
-		System.out.println("Descricao: ");
 		String Descricao = sc.nextLine();
                 
                 int id = 0;
