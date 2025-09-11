@@ -130,6 +130,7 @@ public class Controle {
 				System.out.println("ID: " + tarefa.getId());
 				System.out.println("Título: " + tarefa.getTitulo());
 				System.out.println("Descrição: " + tarefa.getDescrição());
+				System.out.println("Status: " + (tarefa.isCompleta() ? "Completa" : "Incompleta"));
 				System.out.println("======================\n");
 			}
 		}
@@ -158,4 +159,5 @@ public class Controle {
     }
 
 }
+
 
