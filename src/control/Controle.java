@@ -34,14 +34,21 @@ public class Controle {
             return;
         }
 
-        // Exibe IDs e títulos
+        // Lista rápida (ID - Título):
         for (Tarefas t : Lista) {
             System.out.println(t.getId() + " - " + t.getTitulo());
         }
 
-        int id = readInt("Digite o ID da tarefa que deseja editar: ");
+        // Le ID com validacao e limpa o buffer:
+        System.out.print("Digite o ID da tarefa que deseja editar: ");
+        while (!sc.hasNextInt()) {
+            System.out.print("ID inválido. Digite um número: ");
+            sc.next(); // descarta token invalido;
+        }
+        int id = sc.nextInt();
+        sc.nextLine(); // limpa '\n' após o número;
 
-        // Busca tarefa pelo ID
+        // Busca tarefa:
         Tarefas tarefa = null;
         for (Tarefas t : Lista) {
             if (t.getId() == id) {
@@ -49,34 +56,58 @@ public class Controle {
                 break;
             }
         }
-
         if (tarefa == null) {
             System.out.println("Tarefa não encontrada.");
             return;
         }
 
+        // Menu de edição:
         System.out.println("O que deseja editar?");
         System.out.println("1 - Título");
         System.out.println("2 - Descrição");
         System.out.println("3 - Status (Completa/Incompleta)");
 
-        int opcao = readInt("Escolha (1-3): ");
+        int opcao;
+        while (!sc.hasNextInt()) {
+            System.out.print("Opção inválida. Digite 1, 2 ou 3: ");
+            sc.next();
+        }
+        opcao = sc.nextInt();
+        sc.nextLine(); // limpa '\n' ;
 
         switch (opcao) {
             case 1 -> {
-                String novoTitulo = readNonEmptyLine("Novo título: ");
-                tarefa.setTitulo(novoTitulo);
-                System.out.println("Título atualizado.");
+                System.out.print("Novo título: ");
+                String novoTitulo = sc.nextLine().trim();
+                if (novoTitulo.isEmpty()) {
+                    System.out.println("Título não alterado (entrada vazia).");
+                } else {
+                    tarefa.setTitulo(novoTitulo);
+                    System.out.println("Título atualizado.");
+                }
             }
             case 2 -> {
-                String novaDescricao = readNonEmptyLine("Nova descrição: ");
-                tarefa.setDescrição(novaDescricao); // atenção: método com acento
-                System.out.println("Descrição atualizada.");
+                System.out.print("Nova descrição: ");
+                String novaDescricao = sc.nextLine().trim();
+                if (novaDescricao.isEmpty()) {
+                    System.out.println("Descrição não alterada (entrada vazia).");
+                } else {
+                    tarefa.setDescrição(novaDescricao); // metodo com acento para seguir o definido em Tarefas;
+                    System.out.println("Descrição atualizada.");
+                }
             }
             case 3 -> {
-                boolean status = readBoolean("A tarefa está completa? (true/false): ");
-                tarefa.setCompleta(status);
-                System.out.println("Status atualizado.");
+                System.out.print("A tarefa está completa? (verdadeiro/falso): ");
+                String in = sc.nextLine().trim().toLowerCase();
+                // aceita também 's'/'n' ;
+                boolean status = in.equals("verdadeiro") || in.equals("v") || in.equals("sim") || in.equals("s");
+                if (!(in.equals("verdadeiro") || in.equals("falso") || in.equals("v") || in.equals("f")
+                        || in.equals("sim") || in.equals("s") || in.equals("nao") || in.equals("não") || in.equals("n"))) {
+                    System.out.println("Entrada inválida. Status não alterado.");
+                } else {
+                    tarefa.setCompleta(status);
+                    System.out.println("Status atualizado.");
+                }
             }
             default -> {
                 System.out.println("Opção inválida.");
@@ -127,3 +158,4 @@ public class Controle {
     }
 
 }
+
